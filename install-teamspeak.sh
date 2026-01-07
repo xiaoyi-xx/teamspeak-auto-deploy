@@ -813,7 +813,7 @@ uninstall_teamspeak() {
     # 询问用户是否要备份数据
     read -p "是否先备份数据？(y/N): " -n 1 -r
     echo
-    if [[ $REPLY =~ ^[Yy]$ ]]; then
+    if [[ \$REPLY =~ ^[Yy]$ ]]; then
         backup_server
         echo ""
     fi
@@ -821,7 +821,7 @@ uninstall_teamspeak() {
     # 二次确认卸载
     read -p "确定要卸载TeamSpeak服务器吗？(y/N): " -n 1 -r
     echo
-    if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+    if [[ ! \$REPLY =~ ^[Yy]$ ]]; then
         echo -e "${GREEN}卸载已取消${NC}"
         return 0
     fi
