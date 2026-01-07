@@ -314,7 +314,7 @@ start_service_and_get_token() {
     print_divider
     echo ""
     print_warning "⚠️  重要提示：服务启动后将生成管理员Token"
-    print_warning "Token只能使用一次，是获取管理员权限的唯一凭证"
+    print_warning "Token只能使用一次，是获取管理员权限的唯一凭证！"
     echo ""
     print_info "请准备好记录管理员Token！"
     echo ""
