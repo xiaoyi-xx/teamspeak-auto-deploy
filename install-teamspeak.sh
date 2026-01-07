@@ -853,101 +853,101 @@ uninstall_teamspeak() {
 
 # 主循环
 while true; do
-    show_menu
-    read -p "请选择操作 (0-12): " choice
-    
-    case $choice in
-        1)
-            echo -e "${BLUE}正在启动服务...${NC}"
-            systemctl start teamspeak.service
-            sleep 2
-            systemctl is-active teamspeak.service >/dev/null 2>&1
-            if [ $? -eq 0 ]; then
-                echo -e "${GREEN}✅ 服务已启动${NC}"
-            else
-                echo -e "${RED}❌ 服务启动失败${NC}"
-            fi
-            ;;
-        2)
-            echo -e "${BLUE}正在停止服务...${NC}"
-            systemctl stop teamspeak.service
-            sleep 2
-            systemctl is-active teamspeak.service >/dev/null 2>&1
-            if [ $? -ne 0 ]; then
-                echo -e "${GREEN}✅ 服务已停止${NC}"
-            else
-                echo -e "${RED}❌ 服务停止失败${NC}"
-            fi
-            ;;
-        3)
-            echo -e "${BLUE}正在重启服务...${NC}"
-            systemctl restart teamspeak.service
-            sleep 2
-            systemctl is-active teamspeak.service >/dev/null 2>&1
-            if [ $? -eq 0 ]; then
-                echo -e "${GREEN}✅ 服务已重启${NC}"
-            else
-                echo -e "${RED}❌ 服务重启失败${NC}"
-            fi
-            ;;
-        4)
-            echo "=============================================="
-            echo -e "${CYAN}服务状态${NC}"
-            echo "=============================================="
-            systemctl status teamspeak.service --no-pager -l
-            ;;
-        5)
-            echo "=============================================="
-            echo -e "${CYAN}实时日志 (按Ctrl+C退出)${NC}"
-            echo "=============================================="
-            journalctl -u teamspeak.service -f
-            ;;
-        6)
-            echo "=============================================="
-            echo -e "${CYAN}服务器日志${NC}"
-            echo "=============================================="
-            local log_file=$(find "$TS_INSTALL_DIR/logs" -name "ts3server_*.log" 2>/dev/null | sort -r | head -1)
-            if [[ -n "$log_file" ]]; then
-                tail -50 "$log_file"
-            else
-                echo -e "${YELLOW}日志文件不存在${NC}"
-            fi
-            ;;
-        7)
-            show_credentials
-            ;;
-        8)
-            show_connection_info
-            ;;
-        9)
-            systemctl enable teamspeak.service
-            echo -e "${GREEN}✅ 已启用开机自启${NC}"
-            ;;
-        10)
-            systemctl disable teamspeak.service
-            echo -e "${GREEN}✅ 已禁用开机自启${NC}"
-            ;;
-        11)
-            get_token_from_logs
-            ;;
-        12)
-            backup_server
-            ;;
-        13)
-            uninstall_teamspeak
-            ;;
-        0)
-            echo -e "${GREEN}退出管理工具${NC}"
-            exit 0
-            ;;
-        *)
-            echo -e "${RED}无效选择，请重新输入${NC}"
-            ;;
-    esac
-    
-    echo ""
-    read -p "按 Enter 键继续..."
-done
+        show_menu
+        read -p "请选择操作 (0-13): " choice
+        
+        case $choice in
+            1)
+                echo -e "${BLUE}正在启动服务...${NC}"
+                systemctl start teamspeak.service
+                sleep 2
+                systemctl is-active teamspeak.service >/dev/null 2>&1
+                if [ $? -eq 0 ]; then
+                    echo -e "${GREEN}✅ 服务已启动${NC}"
+                else
+                    echo -e "${RED}❌ 服务启动失败${NC}"
+                fi
+                ;;
+            2)
+                echo -e "${BLUE}正在停止服务...${NC}"
+                systemctl stop teamspeak.service
+                sleep 2
+                systemctl is-active teamspeak.service >/dev/null 2>&1
+                if [ $? -ne 0 ]; then
+                    echo -e "${GREEN}✅ 服务已停止${NC}"
+                else
+                    echo -e "${RED}❌ 服务停止失败${NC}"
+                fi
+                ;;
+            3)
+                echo -e "${BLUE}正在重启服务...${NC}"
+                systemctl restart teamspeak.service
+                sleep 2
+                systemctl is-active teamspeak.service >/dev/null 2>&1
+                if [ $? -eq 0 ]; then
+                    echo -e "${GREEN}✅ 服务已重启${NC}"
+                else
+                    echo -e "${RED}❌ 服务重启失败${NC}"
+                fi
+                ;;
+            4)
+                echo "=============================================="
+                echo -e "${CYAN}服务状态${NC}"
+                echo "=============================================="
+                systemctl status teamspeak.service --no-pager -l
+                ;;
+            5)
+                echo "=============================================="
+                echo -e "${CYAN}实时日志 (按Ctrl+C退出)${NC}"
+                echo "=============================================="
+                journalctl -u teamspeak.service -f
+                ;;
+            6)
+                echo "=============================================="
+                echo -e "${CYAN}服务器日志${NC}"
+                echo "=============================================="
+                local log_file=$(find "$TS_INSTALL_DIR/logs" -name "ts3server_*.log" 2>/dev/null | sort -r | head -1)
+                if [[ -n "$log_file" ]]; then
+                    tail -50 "$log_file"
+                else
+                    echo -e "${YELLOW}日志文件不存在${NC}"
+                fi
+                ;;
+            7)
+                show_credentials
+                ;;
+            8)
+                show_connection_info
+                ;;
+            9)
+                systemctl enable teamspeak.service
+                echo -e "${GREEN}✅ 已启用开机自启${NC}"
+                ;;
+            10)
+                systemctl disable teamspeak.service
+                echo -e "${GREEN}✅ 已禁用开机自启${NC}"
+                ;;
+            11)
+                get_token_from_logs
+                ;;
+            12)
+                backup_server
+                ;;
+            13)
+                uninstall_teamspeak
+                ;;
+            0)
+                echo -e "${GREEN}退出管理工具${NC}"
+                exit 0
+                ;;
+            *)
+                echo -e "${RED}无效选择，请重新输入${NC}"
+                ;;
+        esac
+        
+        echo ""
+        read -p "按 Enter 键继续..."
+    done
 EOF
     
     chmod +x "$TS_DIR/manage-teamspeak.sh"
